@@ -47,16 +47,16 @@ class AdaptableWidget extends StatelessWidget {
 
 class AdaptableScaffold extends StatelessWidget {
   AdaptableScaffold({
-    @required this.body,
+    @required this.child,
     this.appBar,
-    this.navigationBarCupertino,
+    this.cupertinoNavigationBar,
     this.backgroundColor,
     this.resizeToAvoidBottomInset = true,
   });
 
-  final Widget body;
+  final Widget child;
   final PreferredSizeWidget appBar;
-  final ObstructingPreferredSizeWidget navigationBarCupertino;
+  final ObstructingPreferredSizeWidget cupertinoNavigationBar;
   final Color backgroundColor;
   final bool resizeToAvoidBottomInset;
 
@@ -64,14 +64,14 @@ class AdaptableScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptableWidget(
       android: Scaffold(
-        body: body,
+        body: child,
         appBar: appBar,
         backgroundColor: backgroundColor,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       ),
       ios: CupertinoPageScaffold(
-        child: body,
-        navigationBar: navigationBarCupertino,
+        child: child,
+        navigationBar: cupertinoNavigationBar,
         backgroundColor: backgroundColor,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       ),

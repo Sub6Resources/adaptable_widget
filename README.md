@@ -2,13 +2,61 @@
 
 A collection of widgets that adapt to match the preferred style of the current platform
 
+## Why?
+
+Flutter is a great development platform, but often different platforms require different UI components to match the style the user is most familiar with (i.e. Material on Android and Cupertino on iOS). This platform aims to make detecting and switching between those platforms as simple as throwing it in another widget that does all the work.
+
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+The simplest use case is just the `AdaptableWidget`:
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```dart
+Widget build() {
+  return AdaptableWidget(
+    android: AndroidWidget(...),
+    ios: CupertinoWidget(...),
+    fuschia: FuschiaWidget(...),
+    windows: WindowsWidget(...), //Currently not supported
+    macos: MacOSWidget(...), //Currently not supported
+    web: WebWidget(...), //Support coming soon
+  );
+}
+```
+
+## Other Widgets
+
+These other widgets wrap the `AdaptableWidget` to provide common-use-case adaptations with less boilerplate.
+
+------------------------------------------------
+
+### `AdaptableScaffold`
+
+The aim of `AdaptableScaffold` is to switch between `Scaffold` or `CupertinoScaffoldPage` without having to write the child UI code twice.
+
+#### Example
+
+```dart
+Widget build() {
+  return AdaptableScaffold(
+    child: MyHomePage(), //Required
+    appBar: AppBar(...),
+    cupertinoNavigationBar: cupertinoNavigationBar(...),
+    backgroundColor: Colors.white,
+    resizeToAvoidBottomInset: true,
+  );
+}
+```
+### `AdaptableButton`
+
+Buttons are one Widget that often have a certain look and feel on different platforms. This `AdaptableButton` class provides simply a `child` and an `onPressed` callback.
+
+#### Example
+
+```dart
+Widget build() {
+  return AdaptableButton(
+    child: Text("Tap Me!"),
+    onPressed: doSomething,
+  );
+}
+```

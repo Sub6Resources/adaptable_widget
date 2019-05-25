@@ -45,6 +45,36 @@ class AdaptableWidget extends StatelessWidget {
   }
 }
 
+class AdaptableApp extends StatelessWidget {
+  AdaptableApp({
+    this.title,
+    this.home,
+    this.materialTheme,
+    this.cupertinoTheme,
+  });
+
+  final String title;
+  final Widget home;
+  final ThemeData materialTheme;
+  final CupertinoThemeData cupertinoTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptableWidget(
+      android: MaterialApp(
+        title: title,
+        theme: materialTheme,
+        home: home,
+      ),
+      ios: CupertinoApp(
+        title: title,
+        theme: cupertinoTheme,
+        home: home,
+      ),
+    )
+  }
+}
+
 class AdaptableScaffold extends StatelessWidget {
   AdaptableScaffold({
     @required this.child,

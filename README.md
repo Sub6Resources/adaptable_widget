@@ -29,6 +29,23 @@ These other widgets wrap the `AdaptableWidget` to provide common-use-case adapta
 
 ------------------------------------------------
 
+### `AdaptableApp`
+
+This is an easy way to switch between `MaterialApp` and `CupertinoApp` so that the material and cupertino widgets have the proper ancestors.
+
+#### Example
+
+```dart
+Widget build() {
+  return AdaptableApp(
+    title: "My App",
+    materialTheme: ...,
+    cupertinoTheme: ...,
+    home: MyHomePage(...),
+  );
+}
+```
+
 ### `AdaptableScaffold`
 
 The aim of `AdaptableScaffold` is to switch between `Scaffold` or `CupertinoScaffoldPage` without having to write the child UI code twice.

@@ -54,12 +54,16 @@ class AdaptableApp extends StatelessWidget {
     this.home,
     this.materialTheme,
     this.cupertinoTheme,
+    this.routes,
+    this.initialRoute,
   });
 
   final String title;
   final Widget home;
   final ThemeData materialTheme;
   final CupertinoThemeData cupertinoTheme;
+  final Map<String, WidgetBuilder> routes;
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +72,15 @@ class AdaptableApp extends StatelessWidget {
         title: title,
         theme: materialTheme,
         home: home,
+        routes: routes,
+        initialRoute: initialRoute,
       ),
       ios: CupertinoApp(
         title: title,
         theme: cupertinoTheme,
         home: home,
+        routes: routes,
+        initialRoute: initialRoute,
       ),
     );
   }
@@ -138,30 +146,30 @@ class AdaptableButton extends StatelessWidget {
 
 class AdaptableTextField extends StatelessWidget {
   AdaptableTextField({
-    this.autocorrect,
-    this.autofocus,
+    this.autocorrect = false,
+    this.autofocus = false,
     this.controller,
     this.style,
     this.strutStyle,
-    this.textAlign,
-    this.obscureText,
-    this.maxLines,
+    this.textAlign = TextAlign.start,
+    this.obscureText = false,
+    this.maxLines = 1,
     this.minLines,
-    this.expands,
+    this.expands = false,
     this.maxLength,
-    this.maxLengthEnforced,
+    this.maxLengthEnforced = true,
     this.onChanged,
     this.onEditingComplete,
     this.onSubmitted,
     this.inputFormatters,
     this.enabled,
-    this.cursorWidth,
+    this.cursorWidth = 2.0,
     this.cursorRadius,
     this.cursorColor,
     this.keyboardAppearance,
-    this.scrollPadding,
+    this.scrollPadding = const EdgeInsets.all(20.0),
     this.enableInteractiveSelection,
-    this.dragStartBehavior,
+    this.dragStartBehavior = DragStartBehavior.start,
     this.onTap,
     this.buildCounter,
     this.scrollPhysics,
@@ -267,7 +275,7 @@ class AdaptableTextField extends StatelessWidget {
 
   final InputCounterWidgetBuilder buildCounter;
 
-  /// {@macro flutter.widgets.edtiableText.scrollPhysics}
+  /// {@macro flutter.widgets.editableText.scrollPhysics}
   final ScrollPhysics scrollPhysics;
 
   @override

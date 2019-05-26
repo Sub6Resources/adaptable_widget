@@ -39,8 +39,8 @@ This is an easy way to switch between `MaterialApp` and `CupertinoApp` so that t
 Widget build() {
   return AdaptableApp(
     title: "My App",
-    materialTheme: ...,
-    cupertinoTheme: ...,
+    materialTheme: ThemeData(...),
+    cupertinoTheme: CupertinoThemeData(...),
     home: MyHomePage(...),
   );
 }
@@ -77,3 +77,7 @@ Widget build() {
   );
 }
 ```
+
+### `AdaptableTextField`
+
+Switches between `TextField` and `CupertinoTextField` based on the platform.

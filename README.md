@@ -81,3 +81,9 @@ Widget build() {
 ### `AdaptableTextField`
 
 Switches between `TextField` and `CupertinoTextField` based on the platform.
+
+## Helper Functions
+
+### `adaptableTextStyle`
+
+This function returns a `TextStyle` or based on the `Platform`.

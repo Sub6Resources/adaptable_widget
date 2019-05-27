@@ -338,3 +338,82 @@ class AdaptableTextField extends StatelessWidget {
     );
   }
 }
+
+enum CupertinoTextTheme {
+  actionTextStyle,
+  navActionTextStyle,
+  navTitleTextStyle,
+  navLargeTitleTextStyle,
+  tabLabelTextStyle,
+  textStyle,
+}
+
+enum MaterialTextTheme {
+  display1,
+  display2,
+  display3,
+  display4,
+  title,
+  subtitle,
+  overline,
+  body1,
+  body2,
+  button,
+  caption,
+  headline,
+  subhead,
+}
+
+TextStyle adaptableTextStyle(BuildContext context, {MaterialTextTheme material, CupertinoTextTheme cupertino}) {
+  if(Platform.isIOS || Platform.isMacOS) {
+    CupertinoTextThemeData textThemeData = CupertinoTheme.of(context).textTheme;
+    switch(cupertino) {
+      case CupertinoTextTheme.actionTextStyle:
+        return textThemeData.actionTextStyle;
+      case CupertinoTextTheme.navActionTextStyle:
+        return textThemeData.navActionTextStyle;
+      case CupertinoTextTheme.navTitleTextStyle:
+        return textThemeData.navTitleTextStyle;
+      case CupertinoTextTheme.navLargeTitleTextStyle:
+        return textThemeData.navLargeTitleTextStyle;
+      case CupertinoTextTheme.tabLabelTextStyle:
+        return textThemeData.tabLabelTextStyle;
+      case CupertinoTextTheme.textStyle:
+        return textThemeData.textStyle;
+      default:
+        return textThemeData.textStyle;
+    }
+  } else {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    switch(material) {
+      case MaterialTextTheme.display1:
+        return textTheme.display1;
+      case MaterialTextTheme.display2:
+        return textTheme.display2;
+      case MaterialTextTheme.display3:
+        return textTheme.display3;
+      case MaterialTextTheme.display4:
+        return textTheme.display4;
+      case MaterialTextTheme.title:
+        return textTheme.title;
+      case MaterialTextTheme.subtitle:
+        return textTheme.subtitle;
+      case MaterialTextTheme.overline:
+        return textTheme.overline;
+      case MaterialTextTheme.body1:
+        return textTheme.body1;
+      case MaterialTextTheme.body2:
+        return textTheme.body2;
+      case MaterialTextTheme.button:
+        return textTheme.button;
+      case MaterialTextTheme.caption:
+        return textTheme.caption;
+      case MaterialTextTheme.headline:
+        return textTheme.headline;
+      case MaterialTextTheme.subhead:
+        return textTheme.subhead;
+      default:
+        return textTheme.body1;
+    }
+  }
+}

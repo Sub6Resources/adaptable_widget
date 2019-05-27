@@ -1,3 +1,7 @@
+## [0.2.1] - May 27, 2019
+
+* Add decoration properties to `AdaptableTextField` widget.
+
 ## [0.2.0] - May 27, 2019
 
 * Make `AdaptableWidget` stateful.

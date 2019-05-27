@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
           title: TextStyle(
             color: Colors.tealAccent,
           )
-        )
+        ),
       ),
       cupertinoTheme: CupertinoThemeData(
         textTheme: CupertinoTextThemeData(

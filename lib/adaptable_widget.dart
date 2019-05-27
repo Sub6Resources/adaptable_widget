@@ -152,11 +152,33 @@ class AdaptableButton extends StatelessWidget {
   }
 }
 
+//These values come from cupertino/text_field.dart
+
+// Value extracted via color reader from iOS simulator.
+const BorderSide _kDefaultRoundedBorderSide = BorderSide(
+  color: CupertinoColors.lightBackgroundGray,
+  style: BorderStyle.solid,
+  width: 0.0,
+);
+const Border _kDefaultRoundedBorder = Border(
+  top: _kDefaultRoundedBorderSide,
+  bottom: _kDefaultRoundedBorderSide,
+  left: _kDefaultRoundedBorderSide,
+  right: _kDefaultRoundedBorderSide,
+);
+// Counted manually on magnified simulator.
+const BoxDecoration _kDefaultRoundedBorderDecoration = BoxDecoration(
+  border: _kDefaultRoundedBorder,
+  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+);
+
 class AdaptableTextField extends StatelessWidget {
   AdaptableTextField({
     this.autocorrect = false,
     this.autofocus = false,
     this.controller,
+    this.materialDecoration = const InputDecoration(),
+    this.cupertinoDecoration = _kDefaultRoundedBorderDecoration,
     this.style,
     this.strutStyle,
     this.textAlign = TextAlign.start,
@@ -184,6 +206,9 @@ class AdaptableTextField extends StatelessWidget {
   });
 
   final TextEditingController controller;
+
+  final InputDecoration materialDecoration;
+  final BoxDecoration cupertinoDecoration;
 
   /// The style to use for the text being edited.
   ///
@@ -291,6 +316,7 @@ class AdaptableTextField extends StatelessWidget {
     return AdaptableWidget(
       android: TextField(
         controller: controller,
+        decoration: materialDecoration,
         style: style,
         strutStyle: strutStyle,
         textAlign: textAlign,
@@ -319,6 +345,7 @@ class AdaptableTextField extends StatelessWidget {
       ),
       ios: CupertinoTextField(
         controller: controller,
+        decoration: cupertinoDecoration,
         style: style,
         strutStyle: strutStyle,
         textAlign: textAlign,

@@ -1,3 +1,7 @@
+## [0.1.4] - May 27, 2019
+
+* Add `AdaptableText` widget.
+
 ## [0.1.3] - May 27, 2019
 
 * Add `adaptableTextStyle` function.

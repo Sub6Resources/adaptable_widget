@@ -36,10 +36,8 @@ class _AdaptableWidgetState extends State<AdaptableWidget> {
   @override
   Widget build(BuildContext context) {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      print("iOS widget");
       return widget.ios ?? widget.android;
     } else if (Theme.of(context).platform == TargetPlatform.android) {
-      print("Android widget");
       return widget.android;
     } else if (Theme.of(context).platform == TargetPlatform.fuchsia) {
       return widget.fuchsia ?? widget.android;
@@ -502,7 +500,6 @@ enum MaterialTextTheme {
 TextStyle adaptableTextStyle(BuildContext context,
     {MaterialTextTheme material, CupertinoTextTheme cupertino}) {
   if (Theme.of(context).platform == TargetPlatform.iOS || Platform.isMacOS) {
-    print("iOS");
     CupertinoTextThemeData textThemeData = CupertinoTheme.of(context).textTheme;
     switch (cupertino) {
       case CupertinoTextTheme.actionTextStyle:
@@ -521,7 +518,6 @@ TextStyle adaptableTextStyle(BuildContext context,
         return textThemeData.textStyle.merge(TextStyle(inherit: true));
     }
   } else {
-    print("Android");
     TextTheme textTheme = Theme.of(context).textTheme;
     switch (material) {
       case MaterialTextTheme.display1:

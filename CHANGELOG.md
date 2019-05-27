@@ -1,3 +1,7 @@
+## [0.2.0] - May 27, 2019
+
+* Make `AdaptableWidget` stateful.
+
 ## [0.1.4] - May 27, 2019
 
 * Add `AdaptableText` widget.

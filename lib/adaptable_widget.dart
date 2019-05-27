@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-class AdaptableWidget extends StatelessWidget {
+class AdaptableWidget extends StatefulWidget {
   AdaptableWidget({
     this.android,
     this.ios,
@@ -29,21 +29,28 @@ class AdaptableWidget extends StatelessWidget {
   final Widget web;
 
   @override
+  _AdaptableWidgetState createState() => _AdaptableWidgetState();
+}
+
+class _AdaptableWidgetState extends State<AdaptableWidget> {
+  @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS) {
-      return ios ?? android;
-    } else if (Platform.isAndroid) {
-      return android;
-    } else if (Platform.isFuchsia) {
-      return fuchsia ?? android;
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      print("iOS widget");
+      return widget.ios ?? widget.android;
+    } else if (Theme.of(context).platform == TargetPlatform.android) {
+      print("Android widget");
+      return widget.android;
+    } else if (Theme.of(context).platform == TargetPlatform.fuchsia) {
+      return widget.fuchsia ?? widget.android;
     } else if (Platform.isWindows) {
-      return windows ?? android;
+      return widget.windows ?? widget.android;
     } else if (Platform.isLinux) {
-      return linux ?? android;
+      return widget.linux ?? widget.android;
     } else if (Platform.isMacOS) {
-      return macos ?? ios ?? android;
+      return widget.macos ?? widget.ios ?? widget.android;
     } else {
-      return android;
+      return widget.android;
     }
   }
 }
@@ -54,7 +61,7 @@ class AdaptableApp extends StatelessWidget {
     this.home,
     this.materialTheme,
     this.cupertinoTheme,
-    this.routes,
+    this.routes = const <String, WidgetBuilder>{},
     this.initialRoute,
   });
 
@@ -93,6 +100,7 @@ class AdaptableScaffold extends StatelessWidget {
     this.cupertinoNavigationBar,
     this.backgroundColor,
     this.resizeToAvoidBottomInset = true,
+    this.floatingActionButton,
   });
 
   final Widget child;
@@ -100,6 +108,7 @@ class AdaptableScaffold extends StatelessWidget {
   final ObstructingPreferredSizeWidget cupertinoNavigationBar;
   final Color backgroundColor;
   final bool resizeToAvoidBottomInset;
+  final Widget floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +118,7 @@ class AdaptableScaffold extends StatelessWidget {
         appBar: appBar,
         backgroundColor: backgroundColor,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+        floatingActionButton: floatingActionButton,
       ),
       ios: CupertinoPageScaffold(
         child: child,
@@ -447,35 +457,19 @@ class AdaptableText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptableWidget(
-      android: Text(
-        text,
-        textAlign: textAlign,
-        maxLines: maxLines,
-        key: key,
-        locale: locale,
-        overflow: overflow,
-        semanticsLabel: semanticsLabel,
-        softWrap: softWrap,
-        strutStyle: strutStyle,
-        style: style ?? adaptableTextStyle(context),
-        textDirection: textDirection,
-        textScaleFactor: textScaleFactor,
-      ),
-      ios: Text(
-        text,
-        textAlign: textAlign,
-        maxLines: maxLines,
-        key: key,
-        locale: locale,
-        overflow: overflow,
-        semanticsLabel: semanticsLabel,
-        softWrap: softWrap,
-        strutStyle: strutStyle,
-        style: style ?? adaptableTextStyle(context),
-        textDirection: textDirection,
-        textScaleFactor: textScaleFactor,
-      ),
+    return Text(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      key: key,
+      locale: locale,
+      overflow: overflow,
+      semanticsLabel: semanticsLabel,
+      softWrap: softWrap,
+      strutStyle: strutStyle,
+      style: style ?? adaptableTextStyle(context),
+      textDirection: textDirection,
+      textScaleFactor: textScaleFactor,
     );
   }
 }
@@ -507,7 +501,8 @@ enum MaterialTextTheme {
 
 TextStyle adaptableTextStyle(BuildContext context,
     {MaterialTextTheme material, CupertinoTextTheme cupertino}) {
-  if (Platform.isIOS || Platform.isMacOS) {
+  if (Theme.of(context).platform == TargetPlatform.iOS || Platform.isMacOS) {
+    print("iOS");
     CupertinoTextThemeData textThemeData = CupertinoTheme.of(context).textTheme;
     switch (cupertino) {
       case CupertinoTextTheme.actionTextStyle:
@@ -523,9 +518,10 @@ TextStyle adaptableTextStyle(BuildContext context,
       case CupertinoTextTheme.textStyle:
         return textThemeData.textStyle;
       default:
-        return textThemeData.textStyle;
+        return textThemeData.textStyle.merge(TextStyle(inherit: true));
     }
   } else {
+    print("Android");
     TextTheme textTheme = Theme.of(context).textTheme;
     switch (material) {
       case MaterialTextTheme.display1:
